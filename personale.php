@@ -6,7 +6,9 @@ if (!$_SESSION['isAuthorized']) {
 }
 include __DIR__ . '/controllers/utenteController.php';
 $response = UtenteController::events($_SESSION['email']);
-$userEvents = $response->fetch_all(MYSQLI_ASSOC);
+if($response){
+    $userEvents = $response->fetch_all(MYSQLI_ASSOC);
+}
 include __DIR__ . '/layout/header.php';
 ?>
 
@@ -15,7 +17,7 @@ include __DIR__ . '/layout/header.php';
         <h1>Ciao <?= $_SESSION['nome']; ?> ecco i tuoi eventi</h1>
         <div class="container">
             <div class="row">
-                <?php if (count($userEvents) > 0) : ?>
+                <?php if ($response) : ?>
                     <?php foreach ($userEvents as $event) : ?>
                         <div class="col">
                             <div class="bullet">
@@ -29,7 +31,7 @@ include __DIR__ . '/layout/header.php';
                     <?php endforeach; ?>
                 <?php else : ?>
                     <div class="col">
-                        <div class="bullet">
+                        <div class="bullet no-event">
                             <h2>NESSUN EVENTO</h2>
                         </div>
                     </div>

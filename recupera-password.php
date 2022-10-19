@@ -2,15 +2,15 @@
 session_start();
 include __DIR__ . '/controllers/utenteController.php';
 if (isset($_POST['recupero'])) {
-    $response = UtenteController::sendEmail($_POST['email']);
+    $successfull = UtenteController::resetPassword($_POST['email'], $_POST['password']);
 }
 include __DIR__ . '/layout/header.php';
 ?>
 
 <main>
-<?php if ($response === true) : ?>
+    <?php if ($successfull) : ?>
         <div class="message">
-            <p>Email inviata con successo!</p>
+            <p>Password aggiornata, ora puoi eseguire il login <a href="./index.php">QUI</a> </p>
         </div>
     <?php endif; ?>
     <section class="recupero pt-5">
@@ -26,8 +26,12 @@ include __DIR__ . '/layout/header.php';
                         </div>
                     <?php endif; ?>
                 </div>
+                <div class="input">
+                    <label for="password">Inserisci la nuova password</label>
+                    <input type="password" name="password" id="password" placeholder="Scrivila qui">
+                </div>
                 <div class="actions">
-                    <button type="submit" name="recupero">INVIA E-MAIL</button>
+                    <button type="submit" name="recupero">RESET PASSWORD</button>
                 </div>
             </form>
             <div class="question-link">
@@ -39,4 +43,3 @@ include __DIR__ . '/layout/header.php';
 <?php
 include __DIR__ . '/layout/footer.php';
 ?>
-

@@ -31,32 +31,36 @@ class UtenteController
     {
         $query = "SELECT * FROM `eventi` WHERE `attendees` LIKE '%$email%'";
         $response = MysqliService::request($query, 'SELECT');
-
+        if($response->num_rows <= 0){
+            return false;
+        }
         return $response;
     }
-    public static function sendEmail($email)
+    public static function resetPassword($email,$password)
     {
-        $query = "SELECT `email`, `password`,`nome` FROM `utenti` WHERE `email` = '$email'";
+        $query = "SELECT `email`, `password`,`nome`,`cognome` FROM `utenti` WHERE `email` = '$email'";
         $response = MysqliService::request($query, 'SELECT');
 
         if (!$response) {
             $result = 'Email non esiste';
             return $result;
         }
-        $data = $response->fetch_object();
-        $message =
-            "<html>
-        <head>
-            <title>Reset Password</title>
-        </head>
-        <body>
-                <h1 style=\"text-align: center; margin-bottom: 2rem\">Ciao '$data->nome' '$data->cognome'</h1>
-                <p style=\"text-align: center;\">Ecco il link per resettare la tua password <a href=\"http://localhost/PHP/edusogno-esercizio/reset-password.php?email='$email'\">Clicca qui</a></p>
-        </body>
-        </html>";
-        
-
-        EmailService::sendEmail($email,$message);
+        $query = "UPDATE `utenti` SET `password` = '$password' WHERE `email` = '$email'";
+        MysqliService::request($query, 'UPDATE');
         return true;
     }
 };
+
+/* $message =
+    "<html>
+<head>
+    <title>Reset Password</title>
+</head>
+<body>
+        <h1 style=\"text-align: center; margin-bottom: 2rem\">Ciao '$data->nome' '$data->cognome'</h1>
+        <p style=\"text-align: center;\">Ecco il link per resettare la tua password <a href=\"http://localhost/PHP/edusogno-esercizio/reset-password.php?email='$data->email'\">Clicca qui</a></p>
+</body>
+</html>";
+ */
+
+/* EmailService::sendEmail($data->email,$message); */

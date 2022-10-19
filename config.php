@@ -19,7 +19,7 @@ class MysqliService
     public static function request($query, $typeQuery)
     {
         $mysql = self::connetti();
-        if ($typeQuery === 'INSERT') {
+        if ($typeQuery === 'INSERT' || $typeQuery === 'UPDATE') {
             if (false === mysqli_query($mysql, $query)) {
                 exit("Errore: impossibile eseguire la query. " . mysqli_error($mysql));
             };
@@ -39,15 +39,15 @@ class MysqliService
     }
 }
 
-class EmailService
+/* class EmailService
 {
     private static $subject = 'Reset Password';
     private static $headers = [
-        'From: webmaster@example.com',
-        'Reply-To: webmaster@example.com',
-        "X-Mailer: PHP/'phpversion()'",
         'MIME-Version: 1.0',
-        'Content-type: text/html; charset=iso-8859-1'
+        'Content-type: text/html; charset=iso-8859-1',
+        'Reply-To: edusogno@example.com',
+        'From: Edusogno <edusogno@example.com>',
+        "X-Mailer: PHP/'phpversion()'",
     ];
 
 
@@ -58,4 +58,4 @@ class EmailService
             exit(error_get_last()['message']);
         }
     }
-}
+} */

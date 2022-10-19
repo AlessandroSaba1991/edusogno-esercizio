@@ -170,6 +170,16 @@
     color: #CCCCCC;
     margin-bottom: 1.5rem;
   }
+  .no-event{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto;
+  }
+  .no-event h2{
+    margin-bottom: 0;
+  }
   /* RECUPERO */
   .recupero h1 {
     text-align: center;
