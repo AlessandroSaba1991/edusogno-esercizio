@@ -31,7 +31,7 @@ class UtenteController
     {
         $query = "SELECT * FROM `eventi` WHERE `attendees` LIKE '%$email%'";
         $response = MysqliService::request($query, 'SELECT');
-        if ($response->num_rows <= 0) {
+        if (!$response) {
             return false;
         }
         return $response;
@@ -47,7 +47,8 @@ class UtenteController
         }
         $query = "UPDATE `utenti` SET `password` = '$password' WHERE `email` = '$email'";
         MysqliService::request($query, 'UPDATE');
-        return true;
+        $result = true;
+        return $result;
     }
 };
 

@@ -2,13 +2,13 @@
 session_start();
 include __DIR__ . '/controllers/utenteController.php';
 if (isset($_POST['recupero'])) {
-    $successfull = UtenteController::resetPassword($_POST['email'], $_POST['password']);
+    $response = UtenteController::resetPassword($_POST['email'], $_POST['password']);
 }
 include __DIR__ . '/layout/header.php';
 ?>
 
 <main>
-    <?php if ($successfull) : ?>
+    <?php if ($response===true) : ?>
         <div class="message">
             <p>Password aggiornata, ora puoi eseguire il login <a href="./index.php">QUI</a> </p>
         </div>
