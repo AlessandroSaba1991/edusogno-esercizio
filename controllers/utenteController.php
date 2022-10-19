@@ -31,12 +31,12 @@ class UtenteController
     {
         $query = "SELECT * FROM `eventi` WHERE `attendees` LIKE '%$email%'";
         $response = MysqliService::request($query, 'SELECT');
-        if($response->num_rows <= 0){
+        if ($response->num_rows <= 0) {
             return false;
         }
         return $response;
     }
-    public static function resetPassword($email,$password)
+    public static function resetPassword($email, $password)
     {
         $query = "SELECT `email`, `password`,`nome`,`cognome` FROM `utenti` WHERE `email` = '$email'";
         $response = MysqliService::request($query, 'SELECT');

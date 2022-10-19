@@ -6,7 +6,7 @@ if (!$_SESSION['isAuthorized']) {
 }
 include __DIR__ . '/controllers/utenteController.php';
 $response = UtenteController::events($_SESSION['email']);
-if($response){
+if ($response) {
     $userEvents = $response->fetch_all(MYSQLI_ASSOC);
 }
 include __DIR__ . '/layout/header.php';
